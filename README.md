@@ -7,7 +7,7 @@
 
 [2021.09.28]: https://github.com/yeoonjae/TLD/blob/main/202109/20210928.md
 
-> [2021.09.30][2021.09.30]  
+> [2021.09.30] : 스프링의 디자인 패턴(1) [2021.09.30]  
 
 [2021.09.30]: https://github.com/yeoonjae/TLD/blob/main/202109/20210930.md
 
