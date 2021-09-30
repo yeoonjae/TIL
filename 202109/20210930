@@ -1,0 +1,103 @@
+> 본 글은 **스프링 입문을 위한 자바 객체 지향의 원리와 이해** 를 읽고 작성한 내용입니다.    
+
+> 
+====
+
+#### 디자인 패턴이란 ?
+
+디자인 패턴이란 실제 개발 환경에서 비즈니스 요구사항을 프로그래밍으로 처리하면서 만들어진 다양한 해결책 중 많은 사람들이 인정한 베스트 프렉티스를 정리한 것이다. 
+
+즉, 다른 상황에 맞게 사용될 수 있는 문제들을 해결하는데에 쓰이는 서술이나 템플릿이라 할 수 있다. 
+
+스프링을 이해하기 위해 많은 디자인 패턴들 중 스프링이 사랑한 디자인 패턴을 살펴보도록 하겠다. 
+
+디자인 패턴은 객체지향 특성 중 상속(extends),인터페이스(interface), 합성(객체를 속성으로 사용)을 이용한다.    
+
+
+
+#### 어댑터 패턴(Adapter Pattern) 
+어댑터를 번역하면 변환기이다. 변환기의 역할은 서로 다른 두 인터페이스 사이에 통신이 가능하게 하는 것이며, 대표적인 예로는 핸드폰 충전기를 들 수 있다. 조금 더 프로그래밍적인 관점으로 본 예제로는 `ODBC`와 `JDBC`가 있다. `ODBC`와 `JDBC`를 이용하면 다양한 데이터베이스 시스템을 단일한 인터페이스로 조작할 수 있게 한다. 
+
+아래의 예제를 통해 어댑터 패턴을 이해해 보자. 우선 어댑터 패턴을 적용하기 전 코드이다. 
+```java
+
+	// ServiceA 클래스
+	public class ServiceA {
+	
+	    void runServiceA() {
+	        System.out.println("ServiceA");
+	    }
+	}
+```
+// ServiceB 클래스
+public class ServiceB {
+
+    void runServiceB() {
+        System.out.println("ServiceB");
+    }
+}
+```
+	// 실행 클래스
+	public class ClientWithNoAdapter {
+	
+	    public static void main(String[] args) {
+	        ServiceA sa1 = new ServiceA();
+	        ServiceB sb1 = new ServiceB();
+	
+	        sa1.runServiceA();
+	        sb1.runServiceB();
+	    }
+	}
+	
+	// 결과
+	ServiceA
+	ServiceB
+
+어댑터 패턴을 적용하기 전 실행클래스의 코드를 보면 `runService()`메서드를 실행시키기 위해 클래스별로 이름이 다른 두 개의 메서드를 호출한다. 
+
+자, 그럼 어댑터 패턴이 적용된 코드를 보자. 
+```java
+
+	// AdapterServiceA 클래스
+	public class AdapterServiceA {
+	
+	    ServiceA sa1 = new ServiceA();
+	
+	    void runService(){
+	        sa1.runServiceA();
+	    }
+	}
+```
+	// AdapterServiceB 클래스
+	public class AdapterServiceB {
+	
+	    ServiceB sa1 = new ServiceB();
+	
+	    void runService() {
+	        sa1.runServiceB();
+	    }
+	}
+```
+	// 실행클래스
+	public class ClientWithAdapter {
+	
+	    public static void main(String[] args) {
+	        AdapterServiceA asa1 = new AdapterServiceA();
+	        AdapterServiceB asb1 = new AdapterServiceB();
+	
+	        asa1.runService();
+	        asb1.runService();
+	    }
+	}
+	
+	// 결과
+	ServiceA
+	ServiceB
+
+어댑터 패턴을 적용한 실행클래스의 코드를 보면 두 개의 다른 객체가 runService()라는 동일한 메서드명으로 호출하는 것을 볼 수 있다. 
+
+어댑터 패턴은 객체를 속성으로 만들어서 참조하는 디자인 패턴으로 한 문장으로 정리하면 다음과 같다. 
+
+	"호출당하는 쪽의 메소드를 호출하는 쪽의 코드에 대응하도록 중간에 변환기를 통해 호출하는 패턴"
+
+*  *  *
