@@ -25,9 +25,9 @@ public class JBOX {
             arr[i] = sc.nextInt();
         }
 
-        for (int i = 0; i < arr.length; i++) {  // arr 배열의 개수만큼 반복
-            for (int j = 0; j < arr[i]; j++) {  // 세로 반복 (3)번 반복
-                for (int k = 0; k < arr[i]; k++) {  // 가로반복 (3)번 반복
+        for (int i = 0; i < arr.length; i++) {  
+            for (int j = 0; j < arr[i]; j++) {  
+                for (int k = 0; k < arr[i]; k++) {  
                     if (j == 0 || j == arr[i] - 1 || k == 0 || k == arr[i]-1) {
                         System.out.print("#");
                     } else if (k != 0 || k != arr[i] - 1) {
