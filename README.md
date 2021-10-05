@@ -17,6 +17,11 @@
 
 [2021.10.01]: https://github.com/yeoonjae/TIL/blob/main/202110/20211001.md
 
-> [2021.10.03][2021.10.03]  : Stream에 대해 알아보기 
+> [2021.10.03][2021.10.03]  :  Stream에 대해 알아보기 
 
 [2021.10.03]: https://github.com/yeoonjae/TIL/blob/main/202110/20211003.md
+
+> 2021.10.04 : 백준 알고리즘 풀이 [9012][9012] <a href="https://github.com/yeoonjae/TIL/blob/main/Algorithm/제로.md">10773</a> <a href="https://github.com/yeoonjae/TIL/blob/main/Algorithm/J%EB%B0%95%EC%8A%A4.md">5354</a>
+
+[9012]: https://github.com/yeoonjae/TIL/blob/main/Algorithm/괄호.md
+
