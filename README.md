@@ -31,4 +31,4 @@
 
 > [2021.10.07][2021.10.07]
 
-[2021.10.05]: https://github.com/yeoonjae/TIL/blob/main/202110/20211007.md
+[2021.10.07]: https://github.com/yeoonjae/TIL/blob/main/202110/20211007.md
