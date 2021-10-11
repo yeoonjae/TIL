@@ -22,6 +22,7 @@
 * <a href = "https://github.com/yeoonjae/TLD/blob/main/Spring/20210930.md">스프링 디자인 패턴 (1)</a>
 
 * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/20211001.md">스프링 디자인 패턴 (2)</a>
+* <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/오브젝트와_의존관계.md">오브젝트와 의존관계 (1)</a> 
 
 * * *
 ## **Algorithm**
