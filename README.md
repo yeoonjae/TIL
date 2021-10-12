@@ -36,3 +36,4 @@
 ## **ETC**
 ### 알아두면 좋은 
 * <a href = "https://github.com/yeoonjae/TLD/blob/main/ETC/20210928.md">[간략정리] PreparedStatement 의 보안적인 이점 / filter vs interceptor / 서블릿이란? / JSP란? </a>
+* <a href = "https://github.com/yeoonjae/TLD/blob/main/ETC/면접_질문_정리_1.md">면접 질문 정리 (1) </a>
