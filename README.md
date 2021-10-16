@@ -16,7 +16,7 @@
 ## **Java**
  * <a href = "https://github.com/yeoonjae/TIL/blob/main/Java/20211003.md">Stream에 대해 알아보기</a>
 * <a href = "https://github.com/yeoonjae/TIL/blob/main/Java/GC.md">GC (Garbage Collector) 이해하기</a>
-* <a href = "https://github.com/yeoonjae/TIL/blob/main/Java/GC.md">GC (Garbage Collector) 종류</a>
+* <a href = "https://github.com/yeoonjae/TIL/blob/main/Java/GC의_종류.md">GC (Garbage Collector) 종류</a>
 * * *
 ## **Spring**
 * <a href = "https://github.com/yeoonjae/TLD/blob/main/Spring/20210930.md">스프링 디자인 패턴 (1)</a>
