@@ -7,6 +7,8 @@
 `@Autowired` 는 필요한 의존 객체의 '타입'에 해당하는 빈을 찾아 주입합니다. 
 즉, 의존성 주입과 관련된 어노테이션 입니다. `@Autowired`를 붙였는데 빈으로 등록되어있지 않으면 was구동 시 에러가 납니다. 
 
+---
+## **@Autowired를 사용할 수 있는 위치**
 
 * @Autowired 의 required 라는 설정이 존재합니다. 이 설정의 기본값은 `false`입니다. 
 * 사용할 수 있는 위치는 다음과 같습니다. 
@@ -56,6 +58,7 @@ public class BookService {
 
 ```
 ---
+## **Bean이 여러 개 일 경우**
 위의 예제는 `@Autowired`를 사용하여 의존성 주입을 하는 빈이 하나일 경우의 예시입니다. 그렇다면 만약 BookRepository가 여러개라면 어떨까요? 혹은 해당하는 타입이 없다면 어떻게 될까요? 다음과 같은 코드가 있다고 가정해봅시다. 
 
 ```java
@@ -86,7 +89,7 @@ public class BookService {
 ```
 위의 코드를 실행하면 에러가 납니다. BookRepository를 구현한 구현체가 2개인데 Service에서는 어떤 것을 주입받아야 할 지 모르기 떄문입니다. 
 
-`@Autowired`는 다음과 같은 순서로 빈을 찾아서 주입합니다. 
+### **`@Autowired`는 다음과 같은 순서로 빈을 찾아서 주입합니다.**
 *  해당 타입의 빈이 있는가?
     * 없다면 Error
     * 있다면 빈이 한 개 인가?
@@ -131,16 +134,23 @@ public class BookService {
 ```
 ---
 
-## **BeanProcessor란?**
+## **동작 원리**
 
-  새로 만든 빈 인스턴스를 수정할 수 있는 라이프 사이클 인터페이스입니다. 
-
-`@PostConstruct` : 빈 인스턴스가 만들어진 후 부가적인 작업을 할 수 있는 어노테이션입니다. 
-
-
-`@Autowired`는 `BeanPostProcessor`라는 라이프 사이클 인터페이스의 구현체인 `AutowiredAnnotationBeanPostProcessor`에 의해 의존성 주입이 이루어집니다. 
-
+### **BeanPostProcessor란?**
 `BeanPostProcessor`는 초기화 라이프 사이클 이전과 이후에 부가적인 작업을 할 수 있는 인터페이스로, bean이 만들어지는 시점 혹은 이전, 이후에 추가적으로 작업을 하고 싶을 때 사용됩니다. 
+
+  * AutowiredAnnotationBeanPostProcessor
+    * BeanPostProcessor의 구현체
+    * BeanPostProcessor의 구현체이므로 IoC 컨테이너에 Bean으로 등록되어 있음
+
+> 즉, `@Autowired`는 `BeanPostProcessor`라는 라이프 사이클 인터페이스의 구현체인 `AutowiredAnnotationBeanPostProcessor`에 의해 의존성 주입이 이루어집니다. 
+* InitializingBean
+    * 초기화 라이프 사이클
+    * Bean 인스턴스가 생성되는 시점
+
+> `@PostConstruct` : 빈 인스턴스가 만들어진 후 부가적인 작업을 할 수 있는 어노테이션입니다. 
+
+---
 
 대략적인 라이프 사이클은 다음과 같습니다. 
 `BeanPostProcessor` (before) → `InitializingBean` → `BeanPostProcess` (after)
