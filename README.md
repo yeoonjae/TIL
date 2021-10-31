@@ -27,7 +27,7 @@
    * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/ApplicationContext.md">ApplicationContext</a> 
    * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/Autowired.md">@Autowired</a> 
    * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/ComponentScan.md">@ComponentScan</a> 
-   * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/빈의 스코프.md">빈의 스코프</a> 
+   * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/빈의_스코프.md">빈의 스코프</a> 
 
 * * *
 ## **Algorithm**
