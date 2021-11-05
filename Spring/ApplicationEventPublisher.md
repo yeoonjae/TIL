@@ -156,3 +156,39 @@ public class AnotherHandler {
 
 }
 ```
+
+---
+## 정리
+  * `ApplicationContext`는 `ApplicationEventPublisher`를 구현하고 있어 이벤트를 발생시킬 수 있습니다. 
+  * 이벤트를 발생시키는 메소드는 `publishEvent(이벤트명)` 입니다. 
+  * Spring 4.2 이후부터는 이벤트 생성 및 이벤트 핸들러 클래스를 만들 때 `ApplicationEvent` 상속과 `ApplicationListener<이벤트명>` 구현을 하지 않아도 됩니다. 
+  * Spring 4.2 부터 이벤트 리스너는 `@EventListener`을 사용하여 빈의 메소드로 사용할 수 있습니다. 
+  * 기본적으로 Spring은 ApplicationContext 가 실행될 때, 초기화 될 때, 종료될 때 등 다양한 이벤트를 제공해줍니다. 
+  * `ApplicationEventPublisher`를 사용할 때 이를 구현하고 있는 `ApplicationContext`를 주입받아 사용하는 것 보다 구체적인 인터페이스를 주입받아 사용하는 것이 직관적이므로 구체적인 인터페이스를 직접 주입받는 것을 지향합니다. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
