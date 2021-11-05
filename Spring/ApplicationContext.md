@@ -142,3 +142,5 @@ public class ApplicationConfig {
  * 자바 설정에서 @ComponentScan
  * 특정 패키지 이하의 모든 클래스 중에 @Component 애노테이션을 사용한 클래스를
 빈으로 자동으로 등록
+
+> ApplicationContext는 BeanFactory의 기능만 하는 것이 아니라, `ResourceLoader`, `ApplicationEventPublisher`, `MessageSource`, `EnvironmentCapable` ...  등 을 구현하고 있기에 BeanFactory 외에도 다양한 기능을 제공합니다. 
