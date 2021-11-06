@@ -86,6 +86,27 @@ public interface Resource extends InputStreamSource {
     - file:///some/resource/path/config.xml -> FileSystemResourc
 
 
+```java
+@Component
+public class AppRunner implements ApplicationRunner {
+    @Autowired
+    ApplicationContext resourceLoader;
+
+    @Override
+    public void run(ApplicationArguments args) throws Exception {
+        System.out.println(resourceLoader.getClass()); // ApplicationContext의 class보기
+
+        Resource resource = resourceLoader.getResource("text.txt"); // 아무런 접두어를 붙이지 않았을 때의 resource
+        Resource resourceClassPath = resourceLoader.getResource("classpath:text.txt"); // classpath 접두어를 붙인 resource
+        System.out.println(resource.getClass()); // ServletContextResource
+        System.out.println(resourceClassPath.getClass()); // ClassPathResource
+    }
+}
+```
+> 실행결과 <br>
+class org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext<br>
+class org.springframework.web.context.support.ServletContextResource<br>
+class org.springframework.core.io.ClassPathResource
 
 
 
