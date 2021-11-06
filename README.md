@@ -29,6 +29,10 @@
    * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/ComponentScan.md">@ComponentScan</a> 
    * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/빈의_스코프.md">빈의 스코프</a> 
    * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/Environment.md">Environment</a> 
+   * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/Resource.md">Resource</a> 
+   * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/Validation_추상화.md">Validation_추상화</a> 
+
+
 
 
 * * *
