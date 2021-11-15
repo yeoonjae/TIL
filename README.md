@@ -32,7 +32,7 @@
    * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/Resource.md">Resource</a> 
    * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/Validation_추상화.md">Validation_추상화</a> 
    * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/DataBinder.md">DataBinder</a> 
-   * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/SpEM.md">SpEL</a> 
+   * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/SpEL.md">SpEL</a> 
    * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/Spring_AOP.md">스프링 AOP</a> 
 
 
