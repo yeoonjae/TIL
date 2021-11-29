@@ -1,3 +1,4 @@
+# **스프링 MVC 동작 원리**
 # **Servlet**
 
 * **서블릿 생명 주기**
@@ -109,6 +110,7 @@ public class SimpleController implements Controller {
 
 ---
 ## **스프링 MVC 구성 요소**
+
 ![image](https://user-images.githubusercontent.com/63777714/143891393-ff7e3b5b-198e-493c-a144-d896428d7e98.png)
 
 * DispatcherSerlvet의 기본 전략
@@ -139,10 +141,40 @@ File을 꺼낼 수 있는 API 제공.
     * FlashMap 인스턴스를 가져오고 저장하는 인터페이스
     * FlashMap은 주로 리다이렉션을 사용할 때 요청 매개변수를 사용하지 않고 데이터를
 전달하고 정리할 때 사용한다.
-    * redirect:/events
+    * redirect:/events?id=2019 --> redirect:/events (매개변수를 사용하지 않게 함)
 
 ---
-## **MVC 설정**
-- `WebMvcConfigurationSupport.class`
-- `WebMvcAutoConfiguration.class`
-- 설정을 기본 설정이다
+## **정리**
+* DispatcherServlet
+    * DispatcherServlet 초기화
+        1. 특정 타입에 해당하는 빈을 찾는다.
+        2. 없으면 기본 전략을 사용한다. (DispatcherServlet.properties)
+* 스프링 부트 사용하지 않는 스프링 MVC
+    *  서블릿 컨네이너(ex, 톰캣)에 등록한 웹 애플리케이션(WAR)에 DispatcherServlet을
+등록한다. 
+        * web.xml에 서블릿 등록
+        * 또는 WebApplicationInitializer에 자바 코드로 서블릿 등록 (스프링 3.1+, 서블릿 3.0+) 
+    * 세부 구성 요소는 빈 설정하기 나름.
+```java
+// WebApplicationInitializer 사용하여 서블릿 등록하는 방법
+public class WebApplication implements WebApplicationInitializer {
+
+    @Override
+    public void onStartup(ServletContext servletContext) throws ServletException {
+        AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
+        context.setServletContext(servletContext);
+        context.register(WebConfig.class);
+        context.refresh();
+
+        DispatcherServlet dispatcherServlet = new DispatcherServlet(context);
+        ServletRegistration.Dynamic app = servletContext.addServlet("app", dispatcherServlet);
+        app.addMapping("/app/*");
+    }
+}
+
+```
+* 스프링 부트를 사용하는 스프링 MVC
+    * 자바 애플리케이션에 내장(임베디드) 톰캣을 만들고 그 안에 DispatcherServlet을
+등록한다. 
+        * 스프링 부트 자동 설정이 자동으로 해줌.
+    * 스프링 부트의 주관에 따라 여러 인터페이스 구현체를 빈으로 등록한다
