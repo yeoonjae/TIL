@@ -34,8 +34,9 @@
    * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/DataBinder.md">DataBinder</a> 
    * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/SpEL.md">SpEL</a> 
    * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/Spring_AOP.md">스프링 AOP</a> 
-
-
+* 스프링 웹 MVC [백기선님의 인프런 강좌]
+   * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/Spring_MVC_동작원리.md">Spring_MVC_동작원리</a> 
+   * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/Spring_MVC_설정.md">Spring_MVC_설정</a> 
 
 
 
