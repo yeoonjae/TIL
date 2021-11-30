@@ -372,3 +372,29 @@ public class SampleControllerTest {
 **Content Negotiation 설정**
 * 요청 본문 또는 응답 본문을 어떤 (MIME) 타입으로 보내야 하는지 결정하는 전략을
 설정할 수 있습니다. 
+
+---
+## **스프링 MVC 설정 정리**
+* **스프링 MVC 설정은 즉 DispatcherServlet이 사용할 여러 빈 설정.**
+    - HandlerMapper
+    - HandlerAdapter
+    - ViewResolver
+    - ExceptionResolver
+    - LocaleResolver
+    - ...
+* 일일히 등록하려니 너무 많고, 해당 빈들이 참조하는 또 다른 객체들까지 설정하려면... 설정할게 너무 많다.
+
+* `@EnableWebMvc`
+    - 애노테이션 기반의 스프링 MVC 설정 간편화
+    - `WebMvcConfigurer`가 제공하는 메소드를 구현하여 커스터마이징할 수 있다.
+* **스프링 부트**
+    - 스프링 부트 자동 설정을 통해 다양한 스프링 MVC 기능을 아무런 설정 파일을
+    만들지 않아도 제공한다.
+    - `WebMvcConfigurer`가 제공하는 메소드를 구현하여 커스터마이징할 수
+    있다. 
+    - `@EnableWebMvc`를 사용하면 스프링 부트 자동 설정을 사용하지
+    못한다.
+* **스프링 MVC 설정 방법**
+- 스프링 부트를 사용하는 경우에는 application.properties 부터 시작.
+- WebMvcConfigurer로 시작
+- @Bean으로 MVC 구성 요소 직접 등록
