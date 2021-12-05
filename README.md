@@ -40,6 +40,7 @@
    * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/Spring_MVC_설정_2.md">Spring_MVC_설정_2</a> 
    * 스프링 MVC 활용
       * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/Spring_MVC_핵심기술_요청맵핑.md">요청 맵핑하기</a>
+      * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/Spring_MVC_핵심기술_핸들러메소드_1.md">핸들러메소드_1</a>
 
 
 

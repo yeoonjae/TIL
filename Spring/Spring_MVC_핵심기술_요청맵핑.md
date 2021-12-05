@@ -67,6 +67,7 @@ Controller로 정의된 클래스에서 `@RequestMapping` 어노테이션을 달
 * @RequestMapping(method={RequestMethod.GET, RequestMethod.POST})
 * @GetMapping, @PostMapping,..
 
+---
 ## **2. URI 패턴 맵핑하기**
 
 > 🕵🏻‍♂️ URI? URL? 뭐가 다른가요? <br>
@@ -152,6 +153,7 @@ public class SampleController {
 * 다양한 응답을 지원하려면 accept header 에 header에 json, html..등을 설정해서 보내는 것을 권장합니다. 
 * 또는 parameter를 통해 `@RequestMapping(value = "/hello?tyupe=xml")` 이와 같이 설정할 수도 있습니다. 
 
+---
 ## **3. 컨텐츠 타입 맵핑하기**
 
 ```java
@@ -203,6 +205,7 @@ class SampleControllerTest {
 * 메소드에 사용한 @RequestMapping의 설정으로 덮어씁니다.
 * Not (!)을 사용해서 특정 미디어 타입이 아닌 경우로 맵핑 할 수도 있습니다.
 
+---
 ## **4. HEAD와  OPTIONS 요청 처리하기**
 
 우리가 구현하지 않아도 `스프링 웹 MVC에서 자동으로 처리`하는 HTTP Method 중
@@ -238,7 +241,7 @@ options에 대한 method 설정을 별도로 하지 않아도 options 로 요청
 * https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html
 * https://github.com/spring-projects/spring-framework/blob/master/spring-test/src/test/java/org/springframework/test/web/servlet/samples/standalone/resultmatchers/HeaderAssertionTests.java
 
-
+---
 ## **5. 커스텀 어노테이션**
 `@RequestMapping` **애노테이션을 메타 애노테이션으로 사용하기**
 * @GetMapping 같은 커스텀한 애노테이션을 만들 수 있습니다. 
