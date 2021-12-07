@@ -41,6 +41,9 @@
    * 스프링 MVC 활용
       * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/Spring_MVC_핵심기술_요청맵핑.md">요청 맵핑하기</a>
       * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/Spring_MVC_핵심기술_핸들러메소드_1.md">핸들러메소드_1</a>
+      * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/Spring_MVC_핵심기술_핸들러메소드_2.md">핸들러메소드_2</a>
+* 토비의 스프링
+   * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/토비의_스프링/4_Exception.md">4장 예외</a>
 
 
 
