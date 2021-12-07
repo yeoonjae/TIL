@@ -395,3 +395,39 @@ sessionStatus.setComplete();
 | HTTP 세션에 들어있는 값을 참조할 때 사용함| HTTP 세션에 들어있는 값을 참조할 때 사용함|
 | 해당 컨트롤러 내에서만 동작 |해당 컨트롤러 밖(인터셉터 또는 필터 등)에서도 동작|
 |해당 컨트롤러 안에서 다루는 특정 모델 객체를 세션에 넣고 공유할 때 사용| 해당 컨트롤러 밖(인터셉터 또는 필터 등)에서만들어 준 세션 데이터에 접근할 때 사용|
+
+**@SessionAttribute 예제**
+```java
+public class VisitTimeInterceptor implements HandlerInterceptor {
+
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
+        Object handler) throws Exception {
+        HttpSession session = request.getSession();
+        if (session.getAttribute("visitTime") == null) {
+            session.setAttribute("visitTime", LocalDateTime.now());
+        }
+        return true;
+    }
+}
+```
+```java
+@Configuration
+public class webConfig implements WebMvcConfigurer {
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new VisitTimeInterceptor());
+    }
+}
+```
+```java
+    @GetMapping("/events/list")
+    public String getEvent(Model model, @SessionAttribute LocalDateTime visitTime) {
+        System.out.println(visitTime);
+
+        return "/events/list";
+    }
+}
+```
+![image](https://user-images.githubusercontent.com/63777714/144972045-ff37187b-0c42-4c77-ad34-bf6df4635b09.png)
