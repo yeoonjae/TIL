@@ -42,6 +42,8 @@
       * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/Spring_MVC_핵심기술_요청맵핑.md">요청 맵핑하기</a>
       * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/Spring_MVC_핵심기술_핸들러메소드_1.md">핸들러메소드_1</a>
       * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/Spring_MVC_핵심기술_핸들러메소드_2.md">핸들러메소드_2</a>
+      * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/@ModelAttribute_활용법.md">@ModelAttribute 의 활용법</a>
+      * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/DataBinder_@initBinder.md">DataBinder:@InitBinder</a>
 * 토비의 스프링
    * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/토비의_스프링/4_Exception.md">4장 예외</a>
 
