@@ -381,6 +381,8 @@ SessionStatus를 사용해서 세션 처리 완료를 알려줄 수 있습니다
 sessionStatus.setComplete();
 ```
 
+---
+
 ## **6. 핸들러 메소드_@SessionAttribute**
 * HTTP 세션에 들어있는 값 참조할 때 사용합니다. (`@SessionAttributes` 랑은 다른것!)
 * HttpSession을 사용할 때 비해 타입 컨버전을 자동으로 지원하기 때문에 편리합니다. 
