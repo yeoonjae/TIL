@@ -44,13 +44,14 @@
       * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/Spring_MVC_핵심기술_핸들러메소드_2.md">핸들러메소드_2</a>
       * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/@ModelAttribute_활용법.md">@ModelAttribute 의 활용법</a>
       * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/DataBinder_@initBinder.md">DataBinder:@InitBinder</a>
+      * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/@ExceptionHandler.md">@ExceptionHandler</a>
 * 토비의 스프링
    * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/토비의_스프링/4_Exception.md">4장 예외</a>
 
 
 
 
-* * *
+* * * 
 ## **Algorithm**
 * 백준 알고리즘 풀이 <a href="https://github.com/yeoonjae/TIL/blob/main/Algorithm/괄호.md">9012</a> <a href="https://github.com/yeoonjae/TIL/blob/main/Algorithm/제로.md">10773</a> <a href="https://github.com/yeoonjae/TIL/blob/main/Algorithm/J%EB%B0%95%EC%8A%A4.md">5354</a>
 
