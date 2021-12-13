@@ -47,7 +47,10 @@
       * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/@ExceptionHandler_@ControllerAdvice.md">@ExceptionHandler, @ControllerAdvice</a>
       
 * 토비의 스프링
+   * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/토비의_스프링/2_Test.md">2장 예외</a>
+   * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/토비의_스프링/3_Template.md">3장 템플릿</a>
    * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/토비의_스프링/4_Exception.md">4장 예외</a>
+
 
 
 
