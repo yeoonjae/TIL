@@ -342,12 +342,122 @@ public class UserService {
 
 
 ---
-## **5.3 메일 서비스 추상화 (작성중)**
+## **5.3 메일 서비스 추상화**
 사용자 레벨 관리에 대해 레벨이 업그레이드되는 사용자에게는 아내 메일을 발송하는 기능을 추가해보자. 
 
+자바가 제공하주는 javax.mail 패키지에 있는 JavaMail을 이용해서 기능을 추가해보자. 우선 User에 email 필드를 추가하고 이메일을 발송하는 기능을 넣자. 
 ```java
+// JavaMial을 이용한 이메일 발송 메소드
+private coid sendUpgradeEMail (User user) {
+	Properties props = new Properties();
+	props.put("mail.smtp.host", "mail.ksug.org");
+	Session s = Session.getInstance(props, null);
 
+	MimeMessage message = new MimeMessage(s);
+	try {
+		message.setFrom(new InternetAddress("useradmin@ksug.org"));
+		message.addRecipient(Message.RecipientType.TO, new InternetAddress(user.getEmail()));
+		message.setSubject("Upgrade 안내");
+		message.setText("사용자님의 등급이 "+ user.getLevel().name() + "로 업그렝드 되었습니다.");
+
+		Transport.send(message);
+	} catch (AddressException e) {
+		throw new RuntimeException(e);
+	} catch (MessagingException e) {
+		throw new RuntimeException(e);
+	} catch (UnsupportedEncodingException e) {
+		throw new RuntimeException(e);
+	}
+}
 ```
+위의 코드는 SMTP 프로토콜을 지원하는 메일 전송 서버가 준비되어 있다면, 정상적으로 동작할 것이다. 하지만, 개발서버일 경우엔 SMTP 프로토콜을 지원하는 메일 전송서버가 준비되어있지 않을수도 있다. 따라서 테스트가 어렵다. 
+
+만약 된다고 하더라도 테스트시마다 메일이 전송이 되는게 옳을까..? 실제 메일 서버를 사용하지 않고 테스트 메일 서버를 이용하여 테스트 성공여부를 판단하는게 가장 적합한 방법인 것 같다. 즉, 외부로 직접 메일을 발송하지는 않지만, JavaMail 과 연동해서 메일 전송 요청을 받는 것까지만 담당하는 것이다. 
+
+### **자, 이제 개발중 또는 테스트를 위한 추상화를 해보자.**
+
+```java
+// 스프링이 제공하는 JavaMail의 서비스 추상화 인터페이스
+public interface MailSender {
+	void send(SimpleMailMessage simpleMessage) throws MailException;
+	void send(SimpleMailMessage[] simpleMessage) throws MailException;
+}
+```
+이를 이용해서 메일발송 메소드를 구현해보자. 스프링의 DI를 이용해서 `MailSender`를 주입받았다. 
+```java
+... 
+public class UserService {
+	...
+	private MailSender mailSender;
+
+	public void setMailSender(MailSender mailSender){
+		this.mailSender = mailSender;
+	}
+
+	private coid sendUpgradeEMail (User user) {
+		SimplaMailMessage mailMessage = new SimplaMailMessage();
+		mailMessage.setTo(user.getEmail());
+		mailMessage.setFrom("useradmin@ksug.org");
+		mailMessage.setSubject("Upgrade 안내");
+		mailMessage.setText("사용자님의 등급이 "+ user.getLevel().name() + "로 업그렝드 되었습니다.");
+
+		this.mailSender.send(mailMessage);
+	}
+}
+```
+그리고 테스트용으로 아무것도 하지 않는 MailSender 인터페이스를 구현한 빈 클래스를 하나 만들자. (구현을 하지 않는 이유는 메일을 실제로 보낼 필요가 없기 때문에! 테스트니까!) 그리고 빈으로 등록해두었던 `JavaMailSenderImpl`을 `DummyMailSender`로 변경해주는 것을 잊지말자. 
+```java
+public class DummyMailSender implements MailSender {
+	public void send(SimpleMailMessage mailMessage) throws MailException {
+	}
+
+	public void send(SimpleMailMessage[] mailMessage) throws MailException {
+	}
+}
+```
+이렇게 코드를 작성했다면 테스트 코드는 다음과 같이 작성할 수 있다. 
+```java
+// Test 코드
+public class UserServiceTest {
+	@Autowired
+	MailSender mailSender;
+
+	@Test
+	public void upgradeAllOrNothing() throws Exception {
+		...
+		testUserService.setMailsender(mailSender);
+	}
+}
+```
+![image](https://user-images.githubusercontent.com/63777714/146325187-3ff16a83-a8ae-4b1f-8a0b-46c6113db44b.png)
+
+이처럼 스프링이 직접 제공해주는 추상화 클래스는 `JavaMailServiceImpl` 이지만, 그 상위계층인 `MailSender`를 이용하여 구현 클래스를 만들어 `MailSender`를 DI를 통해 사용하면 매우 유용하게 사용할 수 있다. 
+
+---
+## **테스트 대역의 종류와 특징**
+위의 예에서 봤듯이 테스트 대상이 되는 오브젝트가 또 다른 오브젝트에 의존하는 경우는 비일비재하다. (예를 들면, UserService는 DI받는 객체가 `UserDao`,`MailSender`,`PlatformTransactionManager`세 개나 됨) 하지만, MailSender같은 경우 실제로 발송이 되면 안되기 때문에 MailSender를 구현한 아무일도 하지 않는 DummyMailSender를 이용하여 테스트 대역으로 사용했다. 
+
+> 💡 이렇게 하나의 오브젝트가 사용하는 오브젝트들을 DI에서 의존 오브젝트라고 불렀다. 의존한다는 것은 종속되거나 기능을 사용한다는 의미이다. 작은 기능이라해도 다른 오브젝트의 기능을 사용한다면, 사용하는 오브젝트의 기능이 바뀌었을 때 자신이 영향을 받을 수 있기 때문에 의존하고 있다고 한다. 의존 오브젝트를 **협력 오브젝트**라고도 한다. 함께 협력해서 일을 처리하는 대상이기 때문이다. 
+
+이처럼 테스트 환경을 만들어주기 위해 테스트 대상이 되는 오브젝트의 기능에만 충실하게 수행하면서 테스트를 실행 가능하도록 만들어주는 오브젝트들을 통틀어서 <u>**테스트 대역**</u>이라고 부른다. 
+
+### **테스트 스텁(test stub)**
+대표적인 테스트 대역은 테스트 스텁(test stub)이다. 테스트 대상 오브젝트의 의존객체로서 존재하면서 테스트 동안에 코드가 정상적으로 수행할 수 있도록 돕는 것을 말한다. 일반적으로 메소드를 통해 전달되는 파라미터와 달리, 테스트 코드 내부에서 간접적으로 사용된다. 따라서 DO 등을 통해 미리 의존 오브젝트를 테스트 스텁으로 변경해야한다. (예, `DummyMailSender`)
+
+또한 스텁이 결과를 돌려줘야 할 때도 있다. 예상한 결과 또는 예상한 예외상황에 대한 테스트를 할 때에도 적용이 가능하다. (상태검증..?)
+
+### **목 오브젝트(mock object)**
+테스트 스텁으로 행위 자체에 대해서 assertThat()으로 검증하는 것은 불가능하다. 그럴 땐 **목 오브젝트**를 사용하여 테스트 대상 오브젝트와 의존 오브젝트 사이에서 일어나는 일을 검증할 수 있도록 해야한다. 
+
+<u>목 오브젝트는 스텁처럼 오브젝트가 정상적으로 실행되도록 도와주면서 테스트 오브젝트와 자신의 사이에서 일어나는 커뮤니케이션 내용을 저장해뒀다가 테스트 결과를 검증하는 데 활용할 수 있게 해준다. (행위검증) </u>
+
+> 🔍 **예를 들어보자!**<br>
+> UserService에서 트랜잭션을 테스트 하는 코드!! 결과만 중요하다. 즉, 전체가 업데이트 되었는지, 아닌지 결과! 상태값만 중요하다!! --> 그러니 **상태검증**! **테스트 스텁**을 사용해서 검증할 수 있다. <br>
+> 
+> UserService 에서 메일 발송을 테스트 하는 코드!! 메일이 정말 MailSender를 통해서 발송이 잘 이루어 졌는지! 행위에 대한 검증이 필요하다! 메일이 발송이 되어도 결과값은 없기 때문에 결과로는 검증이 어렵다.(스텁만으로 검증 어려움) --> **목 오브젝트**를 통해 행위가 잘 이루어 졌는지 검증이 필요함 **행위검증**!
+
+
+
 --- 
 ## **정리**
 * 비즈니스 로직을 담은 코드는 데이터엑세스 로직을 담은 코드와 깔끔하게 분리되는 것이 바람직하다. 비스니스 로직 코드 또한 내부적으로 책임과 역할에 따라서 깔끔하게 메소드로 정리되어야 한다. 
