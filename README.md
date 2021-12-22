@@ -58,6 +58,8 @@
 * * * 
 ## **Algorithm**
 * 백준 알고리즘 풀이 <a href="https://github.com/yeoonjae/TIL/blob/main/Algorithm/괄호.md">9012</a> <a href="https://github.com/yeoonjae/TIL/blob/main/Algorithm/제로.md">10773</a> <a href="https://github.com/yeoonjae/TIL/blob/main/Algorithm/J%EB%B0%95%EC%8A%A4.md">5354</a>
+* 프로그래머스 문제풀이 <a href = "https://github.com/yeoonjae/java_algorithm/blob/main/src/week12/%EB%AC%B8%EC%9E%90%EC%97%B4%EC%95%95%EC%B6%95.java">문자열압축</a>
+<a href="https://github.com/yeoonjae/java_algorithm/blob/main/src/week12/%EC%86%8C%EC%88%98%EB%A7%8C%EB%93%A4%EA%B8%B0.java">소수만들기</a>
 
 * * *
 ## **OS**
