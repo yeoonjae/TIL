@@ -51,6 +51,8 @@
    * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/토비의_스프링/3_Template.md">3장 템플릿</a>
    * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/토비의_스프링/4_Exception.md">4장 예외</a>
    * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/토비의_스프링/5_Service_abstraction.md">5장 서비스 추상화</a>
+   * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/토비의_스프링/6_AOP_1.md">6장 AOP(1)</a>
+   * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/토비의_스프링/6_AOP_2.md">6장 AOP(2)</a>
 
 
 
