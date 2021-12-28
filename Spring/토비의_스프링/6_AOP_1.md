@@ -528,35 +528,60 @@ public class TxProxyFactoryBean implements FactoryBean<Object> {
 
 스프링의 `ProxyFactoryBean`은 프록시를 생성해서 빈 오브젝트로 등록하게 해주는 팩토리 빈이다. `ProxyFactoryBean`은 순수하게 프록시를 생성하는 작업만을 담당하고 프록시를 통해 제공해줄 부가기능은 별도의 빈에 둘 수 있다.
 
-> `ProxyFactoryBean`이 생설하는 프록시에서 사용할 부가기능은 `MethodInterceptor` 인터페이스를 구현해서 만든다. `InvocationHandler`와 비슷하지만, `InvocationHandler`의 `invoke()` 메소드는 타깃 오브젝트에 대한 정보를 제공하지 않아서 타깃은 `InvocationHandler`를 구현한 클래스가 직접 알고 있어야 했다. 반면 `MethodIncterceotir`의 `invoke()`메소드는 `ProxyFactoryBean` 으로부터 타깃 오브젝트에 대한 정보까지도 함께 제공받는다. 따라서 **`MethodInterceptor` 오브젝트는 타깃 오브젝트와 상관없이 독립적으로 만들어질 수 있고, `MethodInterceptor` 오브젝트는 타깃이 다른 여러 프록시에서 함께 사용할 수 있는 싱글톤 빈으로 등록이 가능**하다.
+* ProxyFactoryBean은 순수하게 프록시를 생성하는 작업만을 담당하고, 프록시를 통해 제공해줄 부가기능은 별도의 Bean에 둘 수 있다.
+* 부가 기능은 `MethodInterceptor` 인터페이스를 구현해서 만든다.
+	* `InvocationHandler`의 `invoke()` 메서드는 타깃 오브 젝트에 대한 정보를 제공하지 않는다.
+	* 따라서 `InvocationHandler` 구현체는 타깃에 대한 정보를 직접 알아야한다.
+	* 반면 `MethodInterceptor는` 타깃 오브젝트에 상관없이 독립적으로 만들어질 수 있다.
+		* `ProxyFactoryBean`으로부터 메서드와 타깃 오브젝트의 정보인 `MethodInvocation`을 제공받기 때문이다.
+		* **타깃이 다른 여러 프록시에서 함께 사용할 수 있고, 싱글톤 Bean으로 등록 가능하다.**
 
-## **어드바이스 : 타깃이 필요 없는 순수한 부가기능** 
-`MethodInvocation`은 일종의 콜백 오브젝트로, `proceed()` 메소드를 실행하면 타깃 오브젝트의 메소드를 내부적으로 실행해주는 기능이 있다. **ProxyFactoryBean은 작은 단위의 템플릿/콜백 구조를 응용해서 적용했기 때문에 템플릿 역할을 하는 MethodInvocation을 싱글톤으로 두고 공유할 수 있다.**
+> 🔍 `ProxyFactoryBean`이 생설하는 프록시에서 사용할 부가기능은 `MethodInterceptor` 인터페이스를 구현해서 만든다. `InvocationHandler`와 비슷하지만, `InvocationHandler`의 `invoke()` 메소드는 타깃 오브젝트에 대한 정보를 제공하지 않아서 타깃은 `InvocationHandler`를 구현한 클래스가 직접 알고 있어야 했다. 반면 `MethodIncterceotir`의 `invoke()`메소드는 `ProxyFactoryBean` 으로부터 타깃 오브젝트에 대한 정보까지도 함께 제공받는다. 따라서 **`MethodInterceptor` 오브젝트는 타깃 오브젝트와 상관없이 독립적으로 만들어질 수 있고, `MethodInterceptor` 오브젝트는 타깃이 다른 여러 프록시에서 함께 사용할 수 있는 싱글톤 빈으로 등록이 가능**하다.
 
-또한, ProxyFactoryBean에 이 MethodInterceptor를 설정해줄때는 `addAdvice()`를 사용한다는 점도 기억해두자. `addAdvice()`는 하나의 MethodInterceptor만 추가할 수 있는게 아닌 여러개의 MethodInterceptor를 추가할 수도 있다.
+<br>
 
-스프링은 단순히 메소드 실행을 가로채는 방식 외에도 부가기능을 추가하는 여러가지 다양한 방법을 제공하고 있다. **타깃 오브젝트에 적용하는 부가기능을 담은 오브젝트를 스프링에서는 어드바이스(advice)라고 부른다.**
+## **어드바이스(Advice) : 타깃이 필요 없는 순수한 부가기능** 
+* `proceed()`는 타깃 오브젝트의 메서드를 실행해주는 기능이 있다.
+	* 따라서 `MethodInvocation`은 일종의 콜백 오브젝트이며, `MethodInteceptor`는 일종의 템플릿처럼 공유될 수 있다.
+* `ProxyFactoryBean`은 작은 단위의 템플릿/콜백 구조를 응용했기에 템플릿 역할을 하는 `MethodInterceptor`을 싱글톤 공유가 가능하다.
+	* `JdbcTemplate` 또한 특정 SQL 파라미터에 종속되지 않아 수 많은 DAO가 공유할 수 있다.
+* `ProxyFactoryBean` 하나로도 `addAdvice()`를 통해 여러 개의 부가 기능올 추가한 프록시를 만들 수 있다.
+* Advice는 타깃 오브젝트에 종속되지 않는 순수한 부가기능을 담은 오브젝트다.
+	* `MethodInterceptor`는 Advice 인터페이스를 확장했다.
+* `ProxyFactoryBean`은 인터페이스 타입을 제공받지 않더라도 자동 검출 기능을 통해 구현한 인터페이스를 알아낸다.
 
-어드바이스는 타깃 오브젝트에 종속되지 않는 순수한 부가기능을 담은 오브젝트라는 사실을 잘 기억해두자.
+
+> 🔍 **조금 구체적으로** <br>
+> `MethodInvocation`은 일종의 콜백 오브젝트로, `proceed()` 메소드를 실행하면 타깃 오브젝트의 메소드를 내부적으로 실행해주는 기능이 있다. **ProxyFactoryBean은 작은 단위의 템플릿/콜백 구조를 응용해서 적용했기 때문에 템플릿 역할을 하는 MethodInvocation을 싱글톤으로 두고 공유할 수 있다.**
+> 
+> 또한, ProxyFactoryBean에 이 MethodInterceptor를 설정해줄때는 `addAdvice()`를 사용한다는 점도 기억해두자. `addAdvice()`는 하나의 MethodInterceptor만 추가할 수 있는게 아닌 여러개의 MethodInterceptor를 추가할 수도 있다.
+> 
+> 스프링은 단순히 메소드 실행을 가로채는 방식 외에도 부가기능을 추가하는 여러가지 다양한 방법을 제공하고 있다. **타깃 오브젝트에 적용하는 부가기능을 담은 오브젝트를 스프링에서는 어드바이스(advice)라고 부른다.**
+> 
+> 어드바이스는 타깃 오브젝트에 종속되지 않는 순수한 부가기능을 담은 오브젝트라는 사실을 잘 기억해두자.
+
+<br>
 
 ## **포인트 컷 : 부가기능 적용 대상 메소드 선정 방법**
 MethodInterceptor 오브젝트는 여러 프록시가 공유해서 사용할 수 있다. 따라서 MethodInterceptor 오브젝트는 타깃 정보를 갖고 있지 않도록 만들었다. 그 덕분에 싱글톤으로 등록할 수 있었다. 
 
 그럼 이전에 적용했던 것처럼 메소드의 이름을 pattern으로 DI 받아 트랜잭션 기능을 적용시킬 메소드를 선정한 것은 어떻게 적용할 수 있을까?
 
-**스프링의 ProxyFactoryBean 방식은 두 가지 확장 기능인 `부가기능(advice)`와 `메소드 선정 알고리즘(Point cut)`을 활용하는 다음과 같은 유연한 구조를 제공한다.**
-
 ![image](https://user-images.githubusercontent.com/63777714/146905763-85b319a2-d33c-4e73-bd23-544ad757fa72.png)
 
-스프링은 부가기능을 제공하는 오브젝트를 `어드바이스`라고 부르고, 메소드 선정 알고리즘을 담은 오브젝트를 `포인트 컷`이라고 부른다. 어드바이스와 포인트컷은 모두 프록시에 DI로 주입되서 사용된다. 
+* **스프링의 ProxyFactoryBean 방식은 두 가지 확장 기능인 `부가기능(advice)`와 `메소드 선정 알고리즘(Point cut)`을 활용하는 다음과 같은 유연한 구조를 제공한다.**
+* 스프링은 부가기능을 제공하는 오브젝트를 `어드바이스`라고 부르고, 메소드 선정 알고리즘을 담은 오브젝트를 `포인트 컷`이라고 부른다. 
+	* 어드바이스와 포인트컷은 모두 프록시에 DI로 주입되서 사용된다. 
+* **두 가지 모두 여러 프록시에서 공유가 가능하도록 만들어지기 때문에 스프링의 싱글톤 빈으로 등록이 가능**하다. 
 
-**두 가지 모두 여러 프록시에서 공유가 가능하도록 만들어지기 때문에 스프링의 싱글톤 빈으로 등록이 가능**하다. 
+* 프록시는 클라이언트로부터 요청을 받으면 먼저 포인트컷에게 부가기능을 부여할 메소드인지를 확인해달라고 요청한다. 
+	* 포인트컷은 Pointcut 인터페이스를 구현해서 만들면 된다. 
+* 프록시는 포인트컷으로부터 부가기능을 적용할 대상 메소드인지 확인받으면, MethodInterceptor 타입의 어드바이스를 호출한다. 
+	* 어드바이스는 JDK의 다이내믹 프록시의 InvocationHandler와 달리 직접 타깃을 호출하지 않는다.
 
-프록시는 클라이언트로부터 요청을 받으면 먼저 포인트컷에게 부가기능을 부여할 메소드인지를 확인해달라고 요청한다. 포인트컷은 Pointcut 인터페이스를 구현해서 만들면 된다. 프록시는 포인트컷으로부터 부가기능을 적용할 대상 메소드인지 확인받으면, MethodInterceptor 타입의 어드바이스를 호출한다. 어드바이스는 JDK의 다이내믹 프록시의 InvocationHandler와 달리 직접 타깃을 호출하지 않는다.
-
-어드바이스가 일종의 템플릿이 되고 타깃을 호출하는 기능을 갖고 있는 MethodInvocation 오브젝트가 콜백이 되는 것이다. 템플릿은 한 번 만들면 재사용이 가능하고 여러 빈이 공유해서 사용할 수 있듯이, 어드바이스도 독립적인 싱글톤 빈으로 등록하고 DI를 주입해서 여러 프록시가 사용하도록 만들 수 있다.
-
-**프록시로부터 어드바이스와 포인트컷을 독립시키고 DI를 사용하게 한 것은 전형적인 전략 패턴 구조다.**
+어드바이스가 일종의 템플릿이 되고 타깃을 호출하는 기능을 갖고 있는 MethodInvocation 오브젝트가 콜백이 되는 것이다. 
+* 템플릿은 한 번 만들면 재사용이 가능하고 여러 빈이 공유해서 사용할 수 있듯이, 어드바이스도 독립적인 싱글톤 빈으로 등록하고 DI를 주입해서 여러 프록시가 사용하도록 만들 수 있다.
+	* **프록시로부터 어드바이스와 포인트컷을 독립시키고 DI를 사용하게 한 것은 전형적인 전략 패턴 구조다.**
 
 포인트 컷까지 적용된 ProxyFactoryBean 을 사용하는 테스트 코드를 살펴보자. 
 ```java
@@ -580,16 +605,40 @@ public void pointcutAdvisor() {
 	assertThat(proxiedHello.sayThankYou("Toby"), is("Thank You Toby"));
 }
 ```
-ProxyFactoryBean에는 여러 개의 어드바이스와 포인트컷이 추가될 수 있기 때문에 오브젝트로 묶어서 어드바이스와 포인트 컷을 등록해준다. 포인트컷과 어드바이스를 따로 등록하면 어떤 어드바이스(부가 기능)에 대해 어떤 포인트컷(메소드 선정)을 적용할지 애매해지기 때문이다.
+* 여러 개의 어드바이스와 포인트컷이 추가될 수 있다. 
+* 어떤 어드바이스(부가 기능)에 대해 어떤 포인트컷(메소드 선정)을 적용할지 애매해지기 때문에 둘을 묶은 Advisor 오브젝트로 등록한다.
 
-그래서 이 둘을 Advisor 타입의 오브젝트에 담아서 조합을 만들어 등록하는 것이다. 여러 개의 어드바이스가 등록되더라도 각각 다른 포인트컷과 조합될 수 있기 때문에 각기 다른 메소드 선정 방식을 적용할 수 있다. 이렇게 어드바이스와 포인트 컷을 묶은 오브젝트를 인터페이스 이름을 따서 어드바이저라고 부른다.
+> 🔍 이 둘을 Advisor 타입의 오브젝트에 담아서 조합을 만들어 등록하는 것이다. 여러 개의 어드바이스가 등록되더라도 각각 다른 포인트컷과 조합될 수 있기 때문에 각기 다른 메소드 선정 방식을 적용할 수 있다. 이렇게 어드바이스와 포인트 컷을 묶은 오브젝트를 인터페이스 이름을 따서 어드바이저라고 부른다.
 
-> 어드바이저 = 포인트컷(메소드 선정 알고리즘) + 어드바이스(부가기능)
+> 💡 어드바이저 = 포인트컷(메소드 선정 알고리즘) + 어드바이스(부가기능)
 
 ## **어드바이스와 포인트 컷의 재사용**
-ProxyFactoryBean은 스프링의 DI와 템플릿/콜백 패턴, 서비스 추상화 등의 기법이 모두 적용된 것이다. 따라서 독립적이며, 여러 프록시가 공유할 수 있는 어드바이스와 포인트 컷으로 확장 기능을 분리할 수 있다. 
 
-따라서 다음 그림과 같이 트랜잭션 부가기능을 담은 TransactionAdvice는 하나만 만들어서 싱글톤으로 등록해주면 DI설정을 통해 모든 서비스에 적용이 가능하다. 
+```xml
+// applicationContext.xml
+<bean id="userService" class="org.springframework.aop.framework.ProxyFactoryBean">
+    <property name="target" ref="userServiceImpl"/>
+    <property name="interceptorNames">
+        <list>
+            <value>transactionAdvisor</value>
+        </list>
+    </property>
+</bean>
+<bean id="transactionAdvisor" class="org.springframework.aop.support.DefaultPointcutAdvisor">
+    <property name="advice" ref="transactionAdvice"/>
+    <property name="pointcut" ref="transactionPointcut"/>
+</bean>
+<bean id="transactionAdvice" class="springbook.service.TransactionAdvice">
+    <property name="transactionManager" ref="transactionManager"/>
+</bean>
+<bean id="transactionPointcut" class="org.springframework.aop.support.NameMatchMethodPointcut">
+    <property name="mappedName" value="upgrade*"/>
+</bean>
+```
 
 ![image](https://user-images.githubusercontent.com/63777714/146908324-1c245023-b74f-4dfd-918b-70e0fef24cd7.png)
 
+* ProxyFactoryBean은 DI와 템플릿/콜백 패턴, 서비스 추상화 등의 기법이 모두 적용된 것이다.
+	* 독립적이고, 여러 프록시가 공유할 수 있는 어드바이스와 포인트컷으로 확장 기능을 분리한다.
+* 과거에 Proxy를 서비스별로 일일이 만들어주던 번거로움이 크게 해소된다.
+	* 어드바이스와 포인트컷 및 그에 따른 조합 어드바이저를 싱글톤 Bean으로 등록해두고 재사용한다.
