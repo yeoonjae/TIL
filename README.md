@@ -22,6 +22,7 @@
 * <a href = "https://github.com/yeoonjae/TLD/blob/main/Spring/20210930.md">스프링 디자인 패턴 (1)</a>
 * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/20211001.md">스프링 디자인 패턴 (2)</a>
 * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/오브젝트와_의존관계.md">오브젝트와 의존관계 (1)</a> 
+* <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/SpringTransaction.md">스프링 트랜잭션</a> 
 * 스프링의 핵심기술 [백기선님의 인프런 강좌]
    * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/스프링_IoC_컨테이너와_빈.md">스프링_IoC_컨테이너와_빈</a> 
    * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/ApplicationContext.md">ApplicationContext</a> 
@@ -45,7 +46,6 @@
       * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/@ModelAttribute_활용법.md">@ModelAttribute 의 활용법</a>
       * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/DataBinder_@initBinder.md">DataBinder:@InitBinder</a>
       * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/@ExceptionHandler_@ControllerAdvice.md">@ExceptionHandler, @ControllerAdvice</a>
-      
 * 토비의 스프링
    * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/토비의_스프링/2_Test.md">2장 테스트</a>
    * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/토비의_스프링/3_Template.md">3장 템플릿</a>
