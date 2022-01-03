@@ -53,6 +53,10 @@
    * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/토비의_스프링/5_Service_abstraction.md">5장 서비스 추상화</a>
    * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/토비의_스프링/6_AOP_1.md">6장 AOP(1)</a>
    * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/토비의_스프링/6_AOP_2.md">6장 AOP(2)</a>
+   * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/토비의_스프링/7_스프링_핵심기술의_응용_1.md">7장 스프링 핵심기술의 응용 (1)</a>
+   * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/토비의_스프링/7_스프링_핵심기술의_응용_2.md">7장 스프링 핵심기술의 응용 (2)</a>
+
+
 
 
 
