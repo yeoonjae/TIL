@@ -119,7 +119,7 @@ class FruitBox<T extends Fruit & Eatable> {   // Fruit의 상속을 받은 오�
 ## **와일드 카드**
 ```java
 class Juicer {
-    statuc Juice makeJuice(FruitBox<Fruit> box) {
+    static Juice makeJuice(FruitBox<Fruit> box) {
         String temp = "";
         for(Fruit f : box.getList()) temp += f + " ";
         return new Juice(temp);
@@ -129,13 +129,13 @@ class Juicer {
 위와 같은 클래스가 있다고 가정했을 때 Juicer 클래스를 사용하려면 타입 매개변수 T에 특정 타입을 반드시 지정해주어야 한다. 따라서 만약 타입 매개변수를 Apple로 지정하고 makeJuice() 메소드를 사용하기 위해선 다음과 같이 오버로딩을 해주어야 한다. 
 ```java
 class Juicer {
-    statuc Juice makeJuice(FruitBox<Fruit> box) {
+    static Juice makeJuice(FruitBox<Fruit> box) {
         String temp = "";
         for(Fruit f : box.getList()) temp += f + " ";
         return new Juice(temp);
     }
 
-    statuc Juice makeJuice(FruitBox<Apple>> box) {
+    static Juice makeJuice(FruitBox<Apple>> box) {
         String temp = "";
         for(Fruit f : box.getList()) temp += f + " ";
         return new Juice(temp);
@@ -156,7 +156,7 @@ class Juicer {
 
 ```java
 class Juicer {
-    statuc Juice makeJuice(FruitBox<? extends Fruit> box) {
+    static Juice makeJuice(FruitBox<? extends Fruit> box) {
         String temp = "";
         for(Fruit f : box.getList()) temp += f + " ";
         return new Juice(temp);
@@ -164,3 +164,35 @@ class Juicer {
 }
 ```
 다음과 같이 선언하면 Fruit를 상속받은 오브젝트 Apple도 makeJuice() 메소드를 사용할 수 있다. 
+
+---
+## **제네릭 메소드**
+* 메소드의 선언부에 제네릭 타입이 선언된 메소드를 제네릭 메소드라고 한다. 
+```java
+class FruitBox<T> {
+    static <T> void sort(List<T> list, comparator<? super T> c) { ... }
+}
+```
+* 제네릭 클래스 `<T>`에 선언된 타입 매개변수와 제네릭 메소드에 선언된 `<T>`타입 매개변수는 서로 다른 것이다. 
+* 제네릭 메소드에는 static을 사용할 수 있다. 
+    * 위의 예시 makeJuice() 메소드를 제네릭 메소드로 바꾸면 다음과 같다. 
+```java
+static <T extends Fruit> Juice makeJuice(FruitBox<T> box) {
+    String temp = "";
+    for(Fruit f : box.getList()) temp += f + " ";
+    return new Juice(temp);
+}
+```
+
+위의 메소드를 호출하기 위해선 다음과 같이 타입변수에 타입을 대입해야 한다. 
+```java
+FruitBox<Fruit> fruitBox = new FruitBox<Fruit>();
+FruitBox<Apple> appleBox = new FruitBox<Apple>();
+...
+System.out.println(Juiver.<Fruit>makeJuice(fruitBox));  // 정상 <Fruit> 생략 가능
+System.out.println(Juiver.<Apple>makeJuice(appleBox));  // 정상 <Apple> 생략 가능
+
+```
+---
+참고<br>
+* 자바의 정석
