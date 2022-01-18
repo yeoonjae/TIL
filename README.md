@@ -47,16 +47,17 @@
       * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/@ModelAttribute_활용법.md">@ModelAttribute 의 활용법</a>
       * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/DataBinder_@initBinder.md">DataBinder:@InitBinder</a>
       * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/@ExceptionHandler_@ControllerAdvice.md">@ExceptionHandler, @ControllerAdvice</a>
-* 토비의 스프링
-   * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/토비의_스프링/2_Test.md">2장 테스트</a>
-   * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/토비의_스프링/3_Template.md">3장 템플릿</a>
-   * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/토비의_스프링/4_Exception.md">4장 예외</a>
-   * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/토비의_스프링/5_Service_abstraction.md">5장 서비스 추상화</a>
-   * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/토비의_스프링/6_AOP_1.md">6장 AOP(1)</a>
-   * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/토비의_스프링/6_AOP_2.md">6장 AOP(2)</a>
-   * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/토비의_스프링/7_스프링_핵심기술의_응용_1.md">7장 스프링 핵심기술의 응용 (1)</a>
-   * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/토비의_스프링/7_스프링_핵심기술의_응용_2.md">7장 스프링 핵심기술의 응용 (2)</a>
-
+* 토비의 스프링_v1
+   * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/토비의_스프링_v1/2_Test.md">2장 테스트</a>
+   * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/토비의_스프링_v1/3_Template.md">3장 템플릿</a>
+   * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/토비의_스프링_v1/4_Exception.md">4장 예외</a>
+   * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/토비의_스프링_v1/5_Service_abstraction.md">5장 서비스 추상화</a>
+   * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/토비의_스프링_v1/6_AOP_1.md">6장 AOP(1)</a>
+   * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/토비의_스프링_v1/6_AOP_2.md">6장 AOP(2)</a>
+   * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/토비의_스프링_v1/7_스프링_핵심기술의_응용_1.md">7장 스프링 핵심기술의 응용 (1)</a>
+   * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/토비의_스프링_v1/7_스프링_핵심기술의_응용_2.md">7장 스프링 핵심기술의 응용 (2)</a>
+* 토비의 스프링_v2
+   * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/토비의_스프링_v2/IoC/DI.md">1장 IoC/DI</a>
 
 
 
