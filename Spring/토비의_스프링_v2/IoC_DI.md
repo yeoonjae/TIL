@@ -169,6 +169,16 @@ public void genericApplicationContext() {
 * `XmlWebApplicationContext` : XML 설정파일을 사용하도록 만들어진 것, XML 외의 설정정보 리소스도 사용할 수 있다. 
 * `AnnotationConfigWebApplicationContext` : 어노테이션을 이용한 설정 리소스만 이용할 경우 사용
 * 특징 : 자신이 만들어지고 동작하는 환경인 웹 모듈에 대한 정보에 접근할 수 있다. 
+
+![image](https://user-images.githubusercontent.com/63777714/150086618-d82f6010-04a9-4ae6-b20c-205bdf1e0ef3.png)
+
+위의 그림은 웹 환경에서 스프링 빈으로 이뤄진 애플리케이션이 동작하는 구조다.
+
+1. 서블릿 컨테이너는 브라우저와 같은 클라이언트로부터 들어오는 요청을 받아서 서블릿을 동작시켜주는 일을 맡는다.
+2. 서블릿은 웹 애플리케이션이 시작될 때 미리 만들어둔 웹 애플리케이션 컨텍스트에게 빈 오브젝트로 구성된 애플리케이션의 기동 역할을 해줄 빈을 요청해서 받아둔다.
+3. 그리고 미리 지정된 메소드를 호출함으로써 스프링 컨테이너가 DI 방식으로 구성해둔 애플리케이션의 기능이 시작되는 것이다.
+
+
 > 스프링은 웹 환경에서의 Appliction Context를 생성하고 설정 메타정보로 초기화해주고, 클라이언트로부터 들어오는 요청마다 적절한 빈을 찾아서 이를 실행해주는 `DispatcherServlet` 을 제공해준다. <br> 
 ### **1.1.3 IoC 컨테이너 계층구조**
 * 모든 Application Context는 부모 Application Context를 가질 수 있다. 
