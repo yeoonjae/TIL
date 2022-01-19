@@ -128,3 +128,83 @@ ac.registerBeanDefinition("hello2","helloDef");
 * 가장 일반적인 Application Context 구현 클래스
 * 실전에서 사용될 수 있는 모든 기능으 ㄹ갖춘 ApplicationContext
 * 컨테이너의 주요 기능을 DI를 통해 확장할 수 있도록 설계
+* StaticApplicationContext와는 달리 XML 파일과 같은 외부의 리소스에 있는 빈 설정 메타정보를 Reader를 통해 읽어들여서 메타정보로 전환해서 사용
+* XML 로 작성된 빈 설정정보 리더는 대표적으로 `XmlBeanDefinitionReader` 이다. 
+> 🔍 과정 알아보기<br>
+> 1. 특정 포맷의 빈 설정 메타정보를 확인한다.
+> 2. `BeanDefinitionReader`를 구현한 오브젝트에서 Application Context 가 사용할 수 있는 `BeanDefinition` 정보로 변환한다. 
+
+```java
+@Test
+public void genericApplicationContext() {
+    GenericApplicationContext ac = new GenericApplicationContext();
+    
+    GenericApplicationContext reader = new XmlBeanDefinitionReader(ac);
+    reader.loadBeanDefinitions("외부 리소스 파일 위치 (XML 파일)");
+    
+    ac.refresh(); // 모든 메타정보가 등록이 완료되었으니 Application 컨테이너를 초기화하라는 명령
+    
+    Hello hello = ac.getBean("hello", Hello.class);
+    hello.print();
+
+    assertThat(ac.getBean("printer").toString(), is("Hello Spring"));
+}	
+```
+위의 코드는 XML 파일인 리소스(설정정보)를 XML 설정정보 리더인 `XmlBeanDefinitionReader`를 통해 `GenericApplicationContext`가 이용하도록 하여 Hello bean과 Printer Bean 을 등록하고 사용하게 만든 코드이다. 
+
+* 외부 리소스 파일 위치에 스트링을 넘기면 기본저긍로 classPath로 인식한다. 
+    * classPath: , file:, http: 와같은 접두어도 사용 가능하다.
+* **스프링 IoC 컨테이너가 사용할 수 있는 `BeanDefinition` 오브젝트로 변환만 된다면 어떤 포맷으로 만들어진 설정 메타정보라도 상관없다.**
+
+`GenericApplicationContext`을 실제로 직접 만들고 설정하는 일은 드물지만, 사실상 많이 쓰인다. 현재 JUnit 테스트 시 생성되는 Application Context 가 바로 `GenericApplicationContext`이다. 
+
+**GenericXmlApplicationContext**
+* `GenericApplicationContext`와 `XmlBeanDefinitionReader`가 결합된 `GenericXmlApplicationContext`가 존재한다. 위에 사용했던 예제처럼 따로 적을 필요가 없다. 
+
+**WebApplicationContext**
+* 스프링 애플리케이션에서 가장 많이 사용되는 Application Context이다. 
+* Application Context 를 확장한 인터페이스이다. 
+    * WebApplicationContext를 사용한다는 것은 이를 구현한 구현체를 사용한다는 것이다. 
+* 웹 환경에서 사용할 떄 필요한 기능이 추가된 Application Context 이다. 
+* `XmlWebApplicationContext` : XML 설정파일을 사용하도록 만들어진 것, XML 외의 설정정보 리소스도 사용할 수 있다. 
+* `AnnotationConfigWebApplicationContext` : 어노테이션을 이용한 설정 리소스만 이용할 경우 사용
+* 특징 : 자신이 만들어지고 동작하는 환경인 웹 모듈에 대한 정보에 접근할 수 있다. 
+> 스프링은 웹 환경에서의 Appliction Context를 생성하고 설정 메타정보로 초기화해주고, 클라이언트로부터 들어오는 요청마다 적절한 빈을 찾아서 이를 실행해주는 `DispatcherServlet` 을 제공해준다. <br> 
+### **1.1.3 IoC 컨테이너 계층구조**
+* 모든 Application Context는 부모 Application Context를 가질 수 있다. 
+
+![image](https://user-images.githubusercontent.com/63777714/150066787-11b849dc-d5c9-4142-88a4-fab4143d3a45.png)
+
+* 자식 컨텍스트는 빈을 검색하기 위해 루트 컨텍스트까지 요청할 수 있지만, 부모 컨텍스트는 자식 컨텍스트에게 요청하지 않는다. (위로만 향하는 구조 - 때문에 형제 컨텍스트도 찾지 못함)
+* 빈 검색 순서는 **자신이 먼저 그 다음 부모** 동일한 빈이 발견되면 자신의 것의 빈이 우선순위를 갖는다. 
+
+> 🤷‍♂️ Why? 왜 이렇게 만들었을까?<br>
+> 용도와 성격이 달라서 웹 모듈을 여러 개로 분리하긴 했지만 핵심 로직을 담은 코드를 공유하고 싶을 때 이렇게 구성된다.
+> > 💡 궁금한 점 (상속과 같은 느낌인건가..?) 핵심로직은 동일하지만, 다른 성격을 갖고있는 애들은 확장 또는 다형성을 이용해 정의할 수 있는 것 처럼...
+
+✔ Application Context의 계층 구조를 사용할 때는 어떤 것이 루트인지 어떤것이 부모인지 정확히 인지하고 사용해야 한다. 
+
+### **1.1.4 웹 애플리케이션의 IoC 컨테이너 구성**
+* 몇 개의 서블릿이 중앙집중식으로 모든 요청을 다 받아서 처리하는 방식을 <u>프론트 컨트롤러 패턴</u>이라고 한다. 
+    * 스프링은 이 패턴을 사용한다. 
+
+**웹 어플리케이션의 컨텍스트 구성 방법**
+1. 서블릿 컨텍스트와 Root Application Context 계층구조
+2. Root Application Context 단일구조
+3. 서블릿 컨텍스트 단일구조
+
+**Root Application Context 등록**
+* 웹 애플리케이션의 시자고가 종료 시 발생하는 이벤트를 처리하는 리스터인 `ServletContextListener`를 이용해 Root Web Application Context를 등록한다. 
+* 스프링은 `ServletContextListener`와 같은 기능을 가진 `ContextLoaderListener`를 제공한다. 
+* `ContextLoaderListener` : 웹 애플리케이션이 시작할 때 자동으로 루트 애플리케이션 컨텍스트를 만들고 초기화 해준다. 
+    * default 값
+        * Application Context class : XMlWebApplicationContext
+        * XML 파일 생성 위치 : /WEB-INF/applicationContext.xml
+    * Context Class를 변경하고 싶으면 contextClass 파라미터를 지정하면 된다. 하지만 반드시 WebApplicationContext 인터페이스를 구현한 클래스여야 한다. 
+
+**서블릿 ApplicationContext 등록**
+* 스프링의 웹기능을 지원하는 프론트 컨트롤러 서블릿은 **DisparcherServlet**이다. 
+* <u>DispatcherServlet은 서블릿이 초기화 될 떄 자신만의 컨텍스트를 생성하고 초기화</u>한다. 
+* 동시에 <u>웹 어플리케이션 레벨에 등록된 Root ApplicationContext를 찾아서 이를 자신의 부모 컨텍스트로 사용</u>한다. 
+* 여러개의 DispatcherServlet 도 등록이 가능하며 네임스페이스로 구분한다. 
+
