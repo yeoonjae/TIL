@@ -17,6 +17,8 @@
  * <a href = "https://github.com/yeoonjae/TIL/blob/main/Java/20211003.md">Stream에 대해 알아보기</a>
 * <a href = "https://github.com/yeoonjae/TIL/blob/main/Java/GC.md">GC (Garbage Collector) 이해하기</a>
 * <a href = "https://github.com/yeoonjae/TIL/blob/main/Java/GC의_종류.md">GC (Garbage Collector) 종류</a>
+* <a href = "https://github.com/yeoonjae/TIL/blob/main/Java/Reflection.md">Reflection</a> 
+* <a href = "https://github.com/yeoonjae/TIL/blob/main/Java/ThreadLocal.md">ThreadLocal</a> 
 * * *
 ## **Spring**
 * <a href = "https://github.com/yeoonjae/TLD/blob/main/Spring/20210930.md">스프링 디자인 패턴 (1)</a>
@@ -57,7 +59,7 @@
    * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/토비의_스프링_v1/7_스프링_핵심기술의_응용_1.md">7장 스프링 핵심기술의 응용 (1)</a>
    * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/토비의_스프링_v1/7_스프링_핵심기술의_응용_2.md">7장 스프링 핵심기술의 응용 (2)</a>
 * 토비의 스프링_v2
-   * <a href = "https://github.com/yeoonjae/TIL/blob/mater/Spring/토비의_스프링_v2/IoC_DI.md">1장 IoC/DI</a>
+   * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/토비의_스프링_v2/IoC_DI.md">1장 IoC/DI</a>
 
 
 
