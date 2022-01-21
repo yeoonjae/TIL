@@ -204,7 +204,7 @@ public void genericApplicationContext() {
 3. 서블릿 컨텍스트 단일구조
 
 **Root Application Context 등록**
-* 웹 애플리케이션의 시자고가 종료 시 발생하는 이벤트를 처리하는 리스터인 `ServletContextListener`를 이용해 Root Web Application Context를 등록한다. 
+* 웹 애플리케이션의 시작과 종료 시 발생하는 이벤트를 처리하는 리스너인 `ServletContextListener`를 이용해 Root Web Application Context를 등록한다. 
 * 스프링은 `ServletContextListener`와 같은 기능을 가진 `ContextLoaderListener`를 제공한다. 
 * `ContextLoaderListener` : 웹 애플리케이션이 시작할 때 자동으로 루트 애플리케이션 컨텍스트를 만들고 초기화 해준다. 
     * default 값
@@ -218,3 +218,71 @@ public void genericApplicationContext() {
 * 동시에 <u>웹 어플리케이션 레벨에 등록된 Root ApplicationContext를 찾아서 이를 자신의 부모 컨텍스트로 사용</u>한다. 
 * 여러개의 DispatcherServlet 도 등록이 가능하며 네임스페이스로 구분한다. 
 
+---
+## 🔍 **1.2 IoC/DI를 위한 빈 설정 메타정보 작성**
+
+![image](https://user-images.githubusercontent.com/63777714/150466106-9dd29f1f-2d30-4785-ad88-abcb11afe105.png)
+
+* 메타정보를 통해 IoC 컨테이너는 자신이 만들 오브젝트인지 구분한다. 
+* 하나의 메타정보로 여러개의 빈 오브젝트를 만들 수 있기 때문에 빈의 이름이나 아이디를 나타내는 정보는 포함되지 않는다. 
+* 컨테이너에 빈의 메타정보를 등록할 때 꼭 필요한 것은 **클래스 이름과 빈의 아이디 또는 이름**이다. 
+<details>
+<summary>빈 설정 메타정보 항목</summary>
+<div markdown="1">
+|이름|내용|디폴드 값|
+|--|--|--|
+|beanClassName| 빈 오브젝트의 클래스 이름. 이 클래스의 인스턴스가 된다.|X. 필수항목|
+|parentName|빈 메타정보를 상속받을 부모 BeanDefinition의 이름. 빈의 메타정보는 계층구조로 상속 가능|X|
+|factoryBeanName|팩토리 역할을 하는 빈을 이용해 빈 오브젝트를 생성하는 경우에 팩토리 빈의 이름을 지정한다.|X|
+|factoryMethodName|다른 빈 또는 클래스의 메소드를 통해 빈 오브젝트를 생성하는 경우 그 메소드 이름을 지정한다.|X|
+|scope|빈 오브젝트의 생명주기를 결정하는 스코프 지정.|싱글톤|
+|lazyInit|빈 오브젝트의 생성을 최대한 지연할지 여부. true일 경우 컨테이너는 빈 오브젝트의 생성을 꼭 필요한 시점까지 미룬다.|false|
+|dependsOn|먼저 만들어져야 하는 빈 지정.|X|
+|autowireCandidate|명시적인 설정이 없어도 미리 정해진 규칙을 가지고 자동으로 DI 후보를 결정하는 자동 와이어링 대상으로 포함시킬지 여부|true|
+|primary|자동 와이어링 작업 중 DI대상 후보가 여러개인 경우 우산권을 부여하는 여부. 빈이 여러개일 경우 이 설정이 없다면 예외 발생|false|
+|abstract|메타정보 상속에만 사용할 추상 빈으로 만들지 여부|X|
+|dependencyCheck|프로퍼티 값 또는 레퍼런스가 모두 설정되어 있는지를 검증하는 작업의 종류|X|
+|initMethod|빈이 생성되고 DI를 마친 뒤 실행할 초기화 메소드의 이름|X|
+|destoryMethod|빈의 생명주기가 다 돼서 제거하기 전에 호출할 메소드의 이름|X|
+|propertyValue|프로퍼티의 이름과 설정 값 또는 레퍼런스(수정자 DI 작업에서 사용)|X|
+|annotationMetadata|빈 클래스에 담긴 애노테이션과 그 attrubute 값. 애노테이션을 이용한 설정에서|X|
+</div>
+</details>
+ <br>
+
+### **빈 등록 방법**
+1. **XML : `<bean>` 태그**
+```xml
+<bean id="hello" class="spring.learningtest.spring.ioc.bean.Hello">
+...
+</bean>
+```
+```xml
+<bean id="hello" class="spring.learningtest.spring.ioc.bean.Hello">
+    <property name="printer">
+        <bean ... >
+    </property>
+</bean>
+```
+2. **XML : 네임스페이스와 전용 태그**
+* 스프링은 DI의 원리를 Application Context자신에게도 적용한다. 
+* 하지만, `<bean>` 태그와 구분이 잘 되지 않기 때문에 `<aop:pointcut>` 와 같은 네임스페이스와 태그를 가진 설정 방법을 제공한다. 
+* 이 외에도 많은 네임스페이스아 태그를 제공한다. 물론 직접 커스텀 태그를 만들어서 적용할 수도 있다. 
+    * 🤷‍♂️ How? 스프링 컨테이너가 빈을 만들 때 사용하는 설정 메타정보가 특정 XML 문서나 태그, 포맷에 종속되지 않는 독립적인 오브젝트이기 때문이다. 
+
+3. **자동인식을 이용한 빈 등록 : 스테레오타입 애노테이션과 빈 스캐너**
+* **빈 스캐닝** : 특정 어노테이션을 붙은 클래스를 자동으로 찾아서 빈으로 등록해주는 기능
+* **빈 스캐너** : 빈 스캐닝 작업을 담당하는 오브젝트를 말한다. 
+    * 지정된 클래스패스 아래에 있는 모든 패키지의 클래스를 대상으로 필터를 적용하여 빈 등록할 클래스들을 선별한다. 
+    * 빈 스캐너에 내장된 default Filter는 **@Component 애노테이션과 이를 메타 애노테이션으로 가진 애노테이션이 부여된 클래스**이다. 
+> 이 방식을 사용하면 클래스를 검색하니 클래스 이름은 알 것 이고 빈의 이름은 클래스의 앞글자만 소문자로 변경한 것으로 자동인식한다. 또는 `@Component("빈이름")` 으로 직접 지정할 수도 있다. 
+* 커스텀하여 애노테이션을 만들수도 있다. 
+```java
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Component
+public @interface BusinesRule {
+    String value() default "";
+}
+```

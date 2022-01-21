@@ -26,6 +26,13 @@
 * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/오브젝트와_의존관계.md">오브젝트와 의존관계 (1)</a> 
 * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/SpringTransaction.md">스프링 트랜잭션</a> 
 * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/JDK Dynamic Proxy와 CGLIB.md">JDK Dynamic Proxy와 CGLIB</a> 
+   <details>
+   <summary>디자인 패턴</summary>
+   <div markdown="1">
+   * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/템플릿_메소드_패턴.md">템플릿 메소드 패턴</a> <br>
+   * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/전략_패턴.md">전략 패턴</a> 
+   </div>
+   </details>
 * 스프링의 핵심기술 [백기선님의 인프런 강좌]
    * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/스프링_IoC_컨테이너와_빈.md">스프링_IoC_컨테이너와_빈</a> 
    * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/ApplicationContext.md">ApplicationContext</a> 
