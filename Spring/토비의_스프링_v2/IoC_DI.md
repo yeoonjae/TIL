@@ -286,3 +286,36 @@ public @interface BusinesRule {
     String value() default "";
 }
 ```
+
+4. **자바 코드에 의한 빈 등록 : `@Configuration` 클래스의 `@Bean` 메소드**
+* 자바 코드를 통한 빈 등록 기능 
+* 빈 설정 메타정보를 담고 있는 자바 코드는 `@Configuration` 애노테이션이 달린 클래스를 이용해 작성한다. `@Configuration`와 `@Bean` 애노테이션으로 인해 스프링 컨테이너가 인식할 수 있는 메타정보 겸 빈 오브젝트 팩토리가 된다. 
+```java
+@Configuration
+public class AnnotatedHelloConfig {
+	@Bean
+	public AnnotatedHello annotatedHello() {
+		return new AnnotatedHello();
+	}
+}
+```
+* 위의 코드처럼 등록하면 `AnnotatedHelloConfig` 클래스 자체도 빈으로 등록된다. 
+5. **자바 코드에 의한 빈 등록 :일반 빈 클래스의 @Bean 메소드**
+* POJO 클래스에도 `@Bean`을 사용할 수 있다. 
+* `@Configuration`이 붙은 클래스 안의 빈은 싱글톤이 보장된다. 하지만, POJO 클래스의 `@Bean`은 싱글톤 빈으로 사용되지 않는다. 
+* POJO 클래스의 @Bean을 사용할 때는 이런 위험성이 있기에 함부로 남용해선 안된다. 이를 사용하려면 @Bean 메소드가 정의된 클래스 밖에서 private제어자를 선언하고 DI를 통해 참조해야 한다. 
+* 이렇게 `@Configuration`가 붙은 클래스말고 일반 클래스에 `@Bean`는 `@Bean` 메소드를 통해 정의되는 빈이 클래스로 만들어지는 빈과 매우 밀접한 관계가 있는 경우에 사용한다. 
+
+### **빈 의존관계 설정 방법**
+* DI할 대상을 명시적으로 구체적인 빈을 지정하는 방법 (빈 아이디 직접 지정)
+* 일정 규칙에 따라 자동으로 선정하는 방법 : **Autowiring 자동 와이어링**
+
+* **`@Resource`** : `<property>`선언과 비슷하게 **주입할 빈을 아이디로 지정하는 방법**
+    * 이를 이용해서 DI가 이우어지게 하려면 다음과 같은 방법을 통해야 한다. 
+        1. XML 의 `<context:annotation-config>`
+            * 빈 후처리를 등록해주는 전용 태그 
+        2. XML 의 `<context:component-scan>`
+            * 빈 스캐닝을 통한 빈 등록방법 지정
+        3. AnnotationConfigApplicationContext 또는 AnnotationConfigWebApplicationContext
+            * 빈 스캐너와 애노테이션 의존관계 정보를 읽는 후처리기를 내장한 ApplicationContext 를 이용하는 방법
+
