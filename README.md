@@ -31,6 +31,7 @@
    <div markdown="1">
    * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/템플릿_메소드_패턴.md">템플릿 메소드 패턴</a> <br>
    * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/전략_패턴.md">전략 패턴</a> 
+   * <a href = "https://github.com/yeoonjae/TIL/blob/mater/Spring/Spring_%EB%94%94%EC%9E%90%EC%9D%B8%ED%8C%A8%ED%84%B4_%ED%8C%8C%ED%95%B4%EC%B3%90%EB%B3%B4%EA%B8%B0.md">Spring 디자인 패턴 파해쳐보기</a> 
    </div>
    </details>
 * 스프링의 핵심기술 [백기선님의 인프런 강좌]
