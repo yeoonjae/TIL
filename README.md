@@ -25,7 +25,9 @@
 * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/20211001.md">스프링 디자인 패턴 (2)</a>
 * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/오브젝트와_의존관계.md">오브젝트와 의존관계 (1)</a> 
 * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/SpringTransaction.md">스프링 트랜잭션</a> 
-* <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/JDK Dynamic Proxy와 CGLIB.md">JDK Dynamic Proxy와 CGLIB</a> 
+* <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/JDK Dynamic Proxy와 CGLIB.md">JDK Dynamic Proxy와 CGLIB</a>
+* <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/ProxyFactory.md">ProxyFactory</a>
+
    <details>
    <summary>디자인 패턴</summary>
    <div markdown="1">
