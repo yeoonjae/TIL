@@ -27,7 +27,7 @@
 * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/SpringTransaction.md">스프링 트랜잭션</a> 
 * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/JDK Dynamic Proxy와 CGLIB.md">JDK Dynamic Proxy와 CGLIB</a>
 * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/ProxyFactory.md">ProxyFactory</a>
-
+* <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/@Aspect 프록시.md">@Aspect</a>
    <details>
    <summary>디자인 패턴</summary>
    <div markdown="1">
