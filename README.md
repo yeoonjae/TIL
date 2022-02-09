@@ -25,9 +25,9 @@
 * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/20211001.md">스프링 디자인 패턴 (2)</a>
 * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/오브젝트와_의존관계.md">오브젝트와 의존관계 (1)</a> 
 * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/SpringTransaction.md">스프링 트랜잭션</a> 
-* <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/JDK Dynamic Proxy와 CGLIB.md">JDK Dynamic Proxy와 CGLIB</a>
-* <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/ProxyFactory.md">ProxyFactory</a>
-* <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/@Aspect 프록시.md">@Aspect</a>
+* <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/Spring AOP/JDK Dynamic Proxy와 CGLIB.md">JDK Dynamic Proxy와 CGLIB</a>
+* <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/Spring AOP/ProxyFactory.md">ProxyFactory</a>
+* <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/Spring AOP/@Aspect 프록시.md">@Aspect</a>
    <details>
    <summary>디자인 패턴</summary>
    <div markdown="1">
@@ -47,7 +47,7 @@
    * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/Validation_추상화.md">Validation_추상화</a> 
    * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/DataBinder.md">DataBinder</a> 
    * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/SpEL.md">SpEL</a> 
-   * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/Spring_AOP.md">스프링 AOP</a> 
+   * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/Spring AOP/Spring_AOP.md">스프링 AOP</a> 
 * 스프링 웹 MVC [백기선님의 인프런 강좌]
    * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/Spring_MVC_동작원리.md">Spring_MVC_동작원리</a> 
    * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/Spring_MVC_설정_1.md">Spring_MVC_설정_1</a> 
