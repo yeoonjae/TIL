@@ -19,6 +19,7 @@
 * <a href = "https://github.com/yeoonjae/TIL/blob/main/Java/GC의_종류.md">GC (Garbage Collector) 종류</a>
 * <a href = "https://github.com/yeoonjae/TIL/blob/main/Java/Reflection.md">Reflection</a> 
 * <a href = "https://github.com/yeoonjae/TIL/blob/main/Java/ThreadLocal.md">ThreadLocal</a> 
+* <a href="https://github.com/yeoonjae/TIL/blob/main/Java/java에서 제공하는 동시성 제어 방법.md">동시성 문제를 해결하는 방법</a>
 * * *
 ## **Spring**
 * <a href = "https://github.com/yeoonjae/TLD/blob/main/Spring/20210930.md">스프링 디자인 패턴 (1)</a>
@@ -28,6 +29,7 @@
 * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/Spring AOP/JDK Dynamic Proxy와 CGLIB.md">JDK Dynamic Proxy와 CGLIB</a>
 * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/Spring AOP/ProxyFactory.md">ProxyFactory</a>
 * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/Spring AOP/@Aspect 프록시.md">@Aspect</a>
+* <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/Spring AOP/Pointcut.md">Pointcut</a>
    <details>
    <summary>디자인 패턴</summary>
    <div markdown="1">

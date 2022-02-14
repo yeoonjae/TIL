@@ -62,7 +62,7 @@ public class MultiThread {
     }
   }
 ```
-위에 작성했던 코드에 `synchronized`를 적용시키면 다음과 같이 작성할 수 있습니다. 
+처음에 작성했던 코드에 `synchronized`를 적용시키면 다음과 같이 작성할 수 있습니다. 
 ```java
   @Test
   void threadNotSafe() throws Exception {
@@ -95,7 +95,7 @@ public class MultiThread {
 
 ![image](https://user-images.githubusercontent.com/63777714/153758165-e6ed19a5-b16b-46c6-bd7a-859e3933260d.png)
 
-하지만, 가시성을 확보한 것만으로 동시성 이슈를 해결하기엔 충분하지 않습니다. 읽기를 메모리에서 읽어오지만 쓰기 작업에서 동시성 이슈가 발생할 수 있기 떄문입니다. `volitail`이 효과적인 경우는 하나의 쓰레드가 쓰기작업을 하는 동안 다른 쓰레드가 읽기 작업만 하는 경우입니다. 즉, **원자성을 보장하는 경우에만 동기화를 보장**합니다. 
+하지만, 가시성을 확보한 것만으로 동시성 이슈를 해결하기엔 충분하지 않습니다. 읽기를 메모리에서 읽어오지만 쓰기 작업에서 동시성 이슈가 발생할 수 있기 떄문입니다. `volatile`이 효과적인 경우는 하나의 쓰레드가 쓰기작업을 하는 동안 다른 쓰레드가 읽기 작업만 하는 경우입니다. 즉, **원자성을 보장하는 경우에만 동기화를 보장**합니다. 
 
 문제가 되었던 코드엔 다음과 같이 적용할 수 있습니다. 
 ```java
@@ -123,3 +123,55 @@ public class MultiThread {
 
 
 ## **3. Atomic 클래스**
+* `java.util.concurrent.atomic`
+* Java 에서는 멀티쓰레드 환경에서 thread-safe한 개발을 할 수 있도록 `Atomic` 클래스를 제공합니다. 
+* `Atomic` 클래스는 CAS(compare-and-swap)을 이용하여 동시성을 보장합니다. 그리고 AtomicInteger는 synchronized 보다 적은 비용으로 동시성을 보장합니다. 
+
+> CAS 란 변수의 값을 변경하기 전에 내가 예상한 값인지 확인하여 같은 경우에만 값을 할당하는 알고리즘입니다. Thread-safe 를 위해 자바에서 제공하는 Automic Type 클래스가 CAS 알고리즘을 기반으로 동기화 문제를 해결합니다. 
+> ```java
+> public class AtomicExample {
+>    int val;
+>    
+>    public boolean compareAndSwap(int oldVal, int newVal) {
+>       if(val == oldVal) {
+>            val = newVal;
+>            return true;
+>        } else {
+>            return false;
+>        }
+>    }
+>}
+> ```
+> 코드로 보자면 다음과 같습니다. 변수를 선언하고 내가 예상한 값이 맞다면 새 값을 할당하고, 아닐경우 false 를 반환합니다. 즉, 값을 변경하기 전에 한 번 더 확인합니다. 
+
+Automic 클래스에서 대표적인 클래스인 AtomicInteger를 살펴보겠습니다. 
+```java
+public class AtomicInteger extends Number implements java.io.Serializable {
+ 
+    private volatile int value; // volatile 키워드 적용되어 가시성 보장
+    ...
+    public final int incrementAndGet() {
+        return U.getAndAddInt(this, VALUE, 1) + 1;
+    }
+}
+
+public final class Unsafe {
+    ...
+    // 메모리에 저장된 값과 CPU에 캐시된 값을 비교해 동일한 경우에만 update 수행
+    public final int getAndAddInt(Object o, long offset, int delta) {
+        int v;
+        do {
+            v = getIntVolatile(o, offset);
+        } while (!weakCompareAndSetInt(o, offset, v, v + delta));
+        return v;
+    }
+}
+```
+
+* 전역변수 value를 `volatile`이 적용되어 있습니다.
+* 연산 작업에서는 값이 맞는지 확인한 후 값을 할당하는 CAS 가 적용되어 있습니다.
+
+----
+참고
+ - https://devwithpug.github.io/java/java-thread-safe/
+ - https://velog.io/@been/%EC%9E%90%EB%B0%94Multi-Thread%ED%99%98%EA%B2%BD%EC%97%90%EC%84%9C-%EB%8F%99%EC%8B%9C%EC%84%B1-%EC%A0%9C%EC%96%B4%EB%A5%BC-%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95
