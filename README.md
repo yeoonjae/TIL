@@ -30,6 +30,8 @@
 * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/Spring AOP/ProxyFactory.md">ProxyFactory</a>
 * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/Spring AOP/@Aspect 프록시.md">@Aspect</a>
 * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/Spring AOP/Pointcut.md">Pointcut</a>
+* <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/@SpringBootApplication.md">@SpringBootApplication</a>
+
    <details>
    <summary>디자인 패턴</summary>
    <div markdown="1">
