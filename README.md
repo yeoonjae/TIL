@@ -31,7 +31,6 @@
 * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/Spring AOP/@Aspect 프록시.md">@Aspect</a>
 * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/Spring AOP/Pointcut.md">Pointcut</a>
 * <a href = "https://github.com/yeoonjae/TIL/blob/main/Spring/@SpringBootApplication.md">@SpringBootApplication</a>
-
    <details>
    <summary>디자인 패턴</summary>
    <div markdown="1">
@@ -88,6 +87,7 @@
 * * *
 ## **OS**
 *  <a href="https://github.com/yeoonjae/TIL/blob/main/OS/20211005.md">PCB와 Context Switch</a>
+*  <a href="https://github.com/yeoonjae/TIL/blob/main/OS/Processor_process.md">Processor와 Process</a>
 
 * * * 
 ## **ETC**
