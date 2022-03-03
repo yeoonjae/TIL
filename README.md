@@ -93,7 +93,7 @@
 
 ## **Network**
 *  <a href="https://github.com/yeoonjae/TIL/blob/main/Network/HTTP API 설계.md">HTTP API 설계</a>
-*  <a href="https://github.com/yeoonjae/TIL/blob/main/OS/Processor_process.md">Processor와 Process</a>
+*  <a href="https://github.com/yeoonjae/TIL/blob/main/Network/Socket통신과 HTTP통신.md">Socket 통신과 HTTP 통신</a>
 
 * * * 
 ## **ETC**
